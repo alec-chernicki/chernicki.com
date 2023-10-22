@@ -6,7 +6,7 @@ import PostList from "@/components/post-list";
 export default function Home() {
   return (
     <>
-      <div className="flex gap-6 mb-10">
+      <div className="flex flex-col-reverse md:flex-row gap-6 mb-10">
         <div className="prose prose-neutral dark:prose-invert grow">
           <h1 className="font-semibold font-serif text-4xl mb-6">
             {`Hey there, I'm Alec 👋`}
@@ -22,13 +22,13 @@ export default function Home() {
           corgi, Arthur.`}
           </p>
         </div>
-        <div className="shrink-0 basis-1/3">
+        <div className="shrink-0">
           <Image
             priority
             src={profileImage}
             alt="Picture of Alec Chernicki"
-            className="rounded-md aspect-[4/5] h-full w-auto"
-            width={200}
+            className="rounded-md aspect-[4/5] h-full w-auto min-w-fit"
+            width={175}
           />
         </div>
       </div>

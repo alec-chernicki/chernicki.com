@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${inter.variable} ${garamond.variable} ${robotoMono.variable}`}
       >
         <Providers>
-          <div className="mx-auto max-w-2xl py-12 font-sans">
+          <div className="mx-auto max-w-2xl py-8 md:py-12 font-sans px-6">
             <Navigation />
             {children}
           </div>
