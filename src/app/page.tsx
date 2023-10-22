@@ -22,13 +22,13 @@ export default function Home() {
           corgi, Arthur.`}
           </p>
         </div>
-        <div className="shrink-0">
+        <div className="h-36 w-36 md:h-auto md:w-full md:max-w-[250px] shrink-0 relative">
           <Image
             priority
             src={profileImage}
+            fill
             alt="Picture of Alec Chernicki"
-            className="rounded-md aspect-[4/5] h-full w-auto min-w-fit"
-            width={175}
+            className="rounded-full md:rounded-md object-cover"
           />
         </div>
       </div>
