@@ -6,7 +6,7 @@ import PostList from "@/components/post-list";
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col-reverse md:flex-row gap-6 mb-10">
+      <div className="flex flex-col-reverse md:flex-row gap-8 mb-10">
         <div className="prose prose-neutral dark:prose-invert grow">
           <h1 className="font-semibold font-serif text-4xl mb-6">
             {`Hey there, I'm Alec 👋`}

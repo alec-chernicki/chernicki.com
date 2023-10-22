@@ -25,7 +25,7 @@ function Navigation() {
   const segment = useSelectedLayoutSegment();
 
   return (
-    <div className="flex justify-between items-center mb-8">
+    <div className="flex justify-between items-center mb-10">
       <div className="flex gap-4 items-center">
         <NavigationLink href="/" isActive={!segment}>
           Home
