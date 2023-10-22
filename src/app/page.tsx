@@ -1,43 +1,41 @@
-// app/page.tsx
-import Link from "next/link";
-import { compareDesc, format, parseISO } from "date-fns";
-import { allPosts, Post } from "contentlayer/generated";
-
-function PostCard(post: Post) {
-  return (
-    <div className="mb-8">
-      <h2 className="mb-1 text-xl">
-        <Link
-          href={post.url}
-          className="text-blue-700 hover:text-blue-900 dark:text-blue-400"
-        >
-          {post.title}
-        </Link>
-      </h2>
-      <time dateTime={post.date} className="mb-2 block text-xs text-gray-600">
-        {format(parseISO(post.date), "LLLL d, yyyy")}
-      </time>
-      <div
-        className="text-sm [&>*]:mb-3 [&>*:last-child]:mb-0"
-        dangerouslySetInnerHTML={{ __html: post.body.html }}
-      />
-    </div>
-  );
-}
+import { allPosts } from "contentlayer/generated";
+import Image from "next/image";
+import profileImage from "./profile.jpg";
+import PostList from "@/components/post-list";
 
 export default function Home() {
-  const posts = allPosts.sort((a, b) =>
-    compareDesc(new Date(a.date), new Date(b.date))
-  );
-
   return (
-    <div className="mx-auto max-w-xl py-8">
-      <h1 className="mb-8 text-center text-2xl font-black">
-        Next.js + Contentlayer Example
-      </h1>
-      {posts.map((post, idx) => (
-        <PostCard key={idx} {...post} />
-      ))}
-    </div>
+    <>
+      <div className="flex gap-6 mb-10">
+        <div className="prose prose-neutral dark:prose-invert grow">
+          <h1 className="font-semibold font-serif text-4xl mb-6">
+            {`Hey there, I'm Alec 👋`}
+          </h1>
+          <p>
+            I build tools that scale large JavaScript projects. I&apos;ve worked
+            on web platform teams for the last decade and currently support the
+            teams that build Disney+ and Hulu as an architect.
+          </p>
+          <p>
+            {`I'm passionate about growing empathetic engineering teams and in my
+          free time I like to garden, try new coffeeshops, and hang out with my
+          corgi, Arthur.`}
+          </p>
+        </div>
+        <div className="shrink-0 basis-1/3">
+          <Image
+            priority
+            src={profileImage}
+            alt="Picture of Alec Chernicki"
+            className="rounded-md aspect-[4/5] h-full w-auto"
+            width={200}
+          />
+        </div>
+      </div>
+      <h2 className="mb-2 text-2xl font-semibold font-serif">
+        Recent thoughts...
+      </h2>
+      <PostList posts={allPosts} />
+    </>
   );
 }
