@@ -1,6 +1,6 @@
 import { allPosts } from "contentlayer/generated";
 import Image from "next/image";
-import profileImage from "./profile.jpg";
+import profileImage from "../assets/images/profile.jpg";
 import PostList from "@/components/post-list";
 
 export default function Home() {
