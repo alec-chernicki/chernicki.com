@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ImageResponse } from "next/server";
 
 export const runtime = "edge";
@@ -38,7 +39,7 @@ export async function GET(request: Request) {
             <img
               width="256"
               height="320"
-              src={imageData}
+              src={imageData as any}
               alt="Profile image"
               style={{ borderRadius: "12px" }}
             />
