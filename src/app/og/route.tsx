@@ -30,15 +30,13 @@ export async function GET(request: Request) {
             style={{
               display: "flex",
               alignItems: "center",
-              width: "auto",
-              maxWidth: 550,
               textAlign: "left",
               color: "black",
             }}
           >
             <img
-              width="256"
-              height="320"
+              width="384"
+              height="480"
               src={imageData as any}
               alt="Profile image"
               style={{ borderRadius: "12px" }}
@@ -48,8 +46,8 @@ export async function GET(request: Request) {
                 display: "flex",
                 flexDirection: "column",
                 fontFamily: "EB_Garamond",
-                fontSize: "64px",
-                paddingLeft: "64px",
+                fontSize: "120px",
+                paddingLeft: "80px",
               }}
             >
               <div>Hey there,</div>
