@@ -12,17 +12,14 @@ const garamond = EB_Garamond({
   variable: "--font-garamond",
 });
 
-const robotoMono = Roboto_Mono({
-  subsets: ["latin"],
-  variable: "--font-roboto-mono",
-});
-
 export const metadata: Metadata = {
   title: "Alec Chernicki",
-  description: "Engineer building tools to scale large JavaScript projects.",
+  description:
+    "Hey there, I'm an engineer building tools to scale large JavaScript projects.",
   openGraph: {
     title: "Alec Chernicki",
-    description: "Egnineer building tools to scale large JavaScript projects.",
+    description:
+      "Hey there, I'm an engineering building tools to scale large JavaScript projects.",
     images: [
       {
         url: "https://chernicki.com/og",

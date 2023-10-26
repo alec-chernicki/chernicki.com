@@ -2,6 +2,26 @@ import { allPosts } from "contentlayer/generated";
 import Image from "next/image";
 import profileImage from "../assets/images/profile.jpg";
 import PostList from "@/components/post-list";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Alec Chernicki",
+  description: "Engineer building tools to scale large JavaScript projects.",
+  openGraph: {
+    title: "Alec Chernicki",
+    description: "Engineer building tools to scale large JavaScript projects.",
+    images: [
+      {
+        url: "https://chernicki.com/og",
+        width: 1200,
+        height: 630,
+        alt: "Photo of Alec Chernicki",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 export default function Home() {
   return (

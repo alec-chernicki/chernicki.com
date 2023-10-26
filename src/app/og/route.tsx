@@ -1,9 +1,12 @@
 import Image from "next/image";
-import { ImageResponse } from "next/server";
+import { ImageResponse, NextRequest } from "next/server";
 
 export const runtime = "edge";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl;
+  const title = searchParams.get("title") ?? "Hey there,\n I'm Alec 👋";
+
   try {
     const fontData = await fetch(
       new URL("../../assets/font/EBGaramond-SemiBold.ttf", import.meta.url)
@@ -28,31 +31,12 @@ export async function GET(request: Request) {
         >
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              textAlign: "left",
-              color: "black",
+              textAlign: "center",
+              fontFamily: "EB_Garamond",
+              fontSize: "100px",
             }}
           >
-            <img
-              width="384"
-              height="480"
-              src={imageData as any}
-              alt="Profile image"
-              style={{ borderRadius: "12px" }}
-            />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                fontFamily: "EB_Garamond",
-                fontSize: "120px",
-                paddingLeft: "80px",
-              }}
-            >
-              <div>Hey there,</div>
-              <div>I&apos;m Alec 👋</div>
-            </div>
+            {title}
           </div>
         </div>
       ),

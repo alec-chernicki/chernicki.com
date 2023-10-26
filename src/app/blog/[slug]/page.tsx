@@ -10,21 +10,46 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata | undefined> {
-  const post = allPosts.find((post) => post.slug === `/blog/${params.slug}`);
+  const post = allPosts.find((post) => `/blog/${params.slug}` === post.slug);
 
   if (!post) {
-    throw new Error("Post not found");
+    return;
   }
 
-  const { title, summary } = post;
+  const {
+    title,
+    publishedAt: publishedTime,
+    summary: description,
+
+    slug,
+  } = post;
+  const ogImage = `https://chernicki.com/og?title=${title}`;
 
   return {
     title,
-    description: summary ?? "Blog post",
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      publishedTime,
+      url: `https://chernicki.com/blog/${slug}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImage],
+    },
   };
 }
 
-const PostLayout = ({ params }: { params: { slug: string } }) => {
+const PostPage = ({ params }: { params: { slug: string } }) => {
   const post = allPosts.find((post) => post._raw.flattenedPath === params.slug);
 
   if (!post) {
@@ -40,4 +65,4 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
   );
 };
 
-export default PostLayout;
+export default PostPage;
