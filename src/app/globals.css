@@ -29,3 +29,22 @@ code {
   -moz-osx-font-smoothing: none !important;
   font-weight: medium;
 }
+
+[data-chars-id="b"] {
+  border-bottom-color: #3b82f6;
+  background-color: #1e40af;
+  color: #eff6ff !important;
+}
+
+[data-chars-id="a"] {
+  border-bottom-color: #10b981;
+  background-color: #065f46;
+  color: #ecfdf5 !important;
+}
+
+[data-chars-id] {
+  border-bottom-width: 2px;
+  padding: 0.15rem 0.25rem;
+  border-radius: 4px;
+  font-weight: 700;
+}

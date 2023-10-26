@@ -1,6 +1,6 @@
 ---
 title: "Infinitely Scalable Applications"
-publishedAt: "2023-10-27"
+publishedAt: "2023-10-26"
 summary: ""
 ---
 
@@ -52,7 +52,7 @@ At this stage, our focus is on optimizing for clarity in code usage. To achieve 
 
 For example, if your directory structure contains a lot of authentication and checkout logic
 
-```
+```text /checkout-button.ts/#b /format-price.ts/#b /get-product-information.ts/#b /get-is-authenticated.ts/#a /user-avatar.ts/#a
 ├─ ui/
 │  ├─ checkout-button.ts
 │  └─ user-avatar.ts
@@ -65,7 +65,7 @@ For example, if your directory structure contains a lot of authentication and ch
 
 you’ll be able to organize these into dedicated `/feature-checkout` and `/feature-auth` folders.
 
-```
+```text /checkout-button.ts/#b /format-price.ts/#b /get-product-information.ts/#b /get-is-authenticated.ts/#a /user-avatar.ts/#a
 ├─ feature-checkout/
 │  ├─ ui/
 │  │  └─ checkout-button.ts
@@ -113,7 +113,7 @@ We're going to use packages to create a stronger boundary between our features a
 
 We’ll begin by taking the first step in decomposing our application. First, we’ll create `/app` and `/packages` folders at the root of our project.
 
-```
+```text /checkout-button.ts/#b /format-price.ts/#b /get-product-information.ts/#b /get-is-authenticated.ts/#a /user-avatar.ts/#a
 my-app (root)/
 ├─ apps/
 ├─ packages/
@@ -134,7 +134,7 @@ my-app (root)/
 
 Next move everything in the root directory into a new application folder in the `/apps` directory and rename the root directory.
 
-```
+```text /checkout-button.ts/#b /format-price.ts/#b /get-product-information.ts/#b /get-is-authenticated.ts/#a /user-avatar.ts/#a
 my-monorepo (root)/
 ├─ apps/
 │  └─ my-app/
@@ -166,9 +166,9 @@ packages:
 	- "apps/*"
 ```
 
-We’re going to move everything that was in our feature folder into our package’s `/src` directory.
+We’re going to move our checkout feature into it's own package. We'll take everything that was in the `/feature-checkout` folder and move it into our new package’s `/src` directory.
 
-```
+```text /checkout-button.ts/#b /format-price.ts/#b /get-product-information.ts/#b /get-is-authenticated.ts/#a /user-avatar.ts/#a
 /my-monorepo (root)/
 ├── /packages/
 │   └── /feature-checkout/
