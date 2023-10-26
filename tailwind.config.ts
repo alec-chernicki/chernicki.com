@@ -19,7 +19,6 @@ const config: Config = {
     fontFamily: {
       sans: ["var(--font-inter)", ...fontFamily.sans],
       serif: ["var(--font-garamond)", ...fontFamily.serif],
-      mono: ["var(--font-roboto-mono)", ...fontFamily.serif],
     },
   },
 

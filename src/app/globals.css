@@ -23,3 +23,9 @@
 body {
   font-family: var(--font-inter);
 }
+
+code {
+  -webkit-font-smoothing: none !important;
+  -moz-osx-font-smoothing: none !important;
+  font-weight: medium;
+}

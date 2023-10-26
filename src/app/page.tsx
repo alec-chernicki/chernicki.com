@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <div className="flex flex-col-reverse md:flex-row gap-8 mb-10">
         <div className="prose prose-neutral dark:prose-invert grow">
-          <h1 className="font-semibold font-serif text-4xl mb-6">
+          <h1 className="font-bold font-serif text-4xl mb-6">
             {`Hey there, I'm Alec 👋`}
           </h1>
           <p>
@@ -32,9 +32,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <h2 className="mb-2 text-2xl font-semibold font-serif">
-        Recent thoughts...
-      </h2>
+      <h2 className="mb-2 text-2xl font-bold font-serif">Recent thoughts...</h2>
       <PostList posts={allPosts} />
     </>
   );

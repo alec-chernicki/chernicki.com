@@ -43,9 +43,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="antialiased">
-      <body
-        className={`${inter.variable} ${garamond.variable} ${robotoMono.variable}`}
-      >
+      <body className={`${inter.variable} ${garamond.variable}`}>
         <Providers>
           <div className="mx-auto max-w-3xl py-8 md:py-12 font-sans px-6">
             <Navigation />

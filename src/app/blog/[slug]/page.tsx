@@ -32,8 +32,8 @@ const PostLayout = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <article className="grid space-y-4">
-      <h1 className="font-semibold font-serif text-4xl">{post.title}</h1>
+    <article className="grid space-y-4 pb-16">
+      <h1 className="font-bold font-serif text-4xl">{post.title}</h1>
       <DateTime dateTime={post.publishedAt} />
       <Mdx code={post.body.code} />
     </article>

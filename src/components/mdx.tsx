@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import clsx from "clsx";
+import { File } from "lucide-react";
 
 const CustomLink = (props: React.ComponentPropsWithoutRef<"a">) => {
   const href = props.href;
@@ -35,16 +36,36 @@ function RoundedImage({ alt, ...props }: React.ComponentProps<typeof Image>) {
   );
 }
 
+function Filename({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex flex-nowrap items-center gap-1 dark:text-white text-neutral-800">
+      <File className="h-4 w-4" />
+      <p className="font-mono font-semibold my-0 text-xs">{children}</p>
+    </div>
+  );
+}
+
+function Callout(props: React.ComponentProps<"aside">) {
+  return (
+    <aside
+      {...props}
+      className="border-l-2 dark:border-neutral-700 border-neutral-300 pl-6"
+    />
+  );
+}
+
 const components = {
   Image: RoundedImage,
   a: CustomLink,
+  Filename,
+  Callout,
 };
 
 export function Mdx({ code }: { code: string }) {
   const Component = useMDXComponent(code);
 
   return (
-    <article className="prose prose-quoteless prose-neutral dark:prose-invert overflow-hidden">
+    <article className="prose prose-quoteless prose-neutral dark:prose-invert overflow-hidden max-w-full">
       <Component components={components} />
     </article>
   );

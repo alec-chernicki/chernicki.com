@@ -1,6 +1,6 @@
 ---
 title: "Infinitely Scalable Applications"
-publishedAt: "2023-01-10"
+publishedAt: "2023-10-27"
 summary: ""
 ---
 
@@ -53,31 +53,31 @@ At this stage, our focus is on optimizing for clarity in code usage. To achieve 
 For example, if your directory structure contains a lot of authentication and checkout logic
 
 ```
-/ui
-  checkout-button.ts
-	user-avatar.ts
-/utilities
-  format-price.ts
-/data
-  get-product-infomation.ts
-  get-is-authenticated.ts
+├─ ui/
+│  ├─ checkout-button.ts
+│  └─ user-avatar.ts
+├─ utilities/
+│  └─ format-price.ts
+└─ data/
+   ├─ get-product-information.ts
+   └─ get-is-authenticated.ts
 ```
 
 you’ll be able to organize these into dedicated `/feature-checkout` and `/feature-auth` folders.
 
 ```
-/feature-checkout
-  /ui
-    /checkout-button.ts
-  /utilities
-    format-price.ts
-  /data
-    get-product-information.ts
-/feature-auth
-  /ui
-    user-avatar.ts
-  /data
-    get-is-authenticated.ts
+├─ feature-checkout/
+│  ├─ ui/
+│  │  └─ checkout-button.ts
+│  ├─ utilities/
+│  │  └─ format-price.ts
+│  └─ data/
+│     └─ get-product-information.ts
+└─ feature-auth/
+   ├─ ui/
+   │  └─ user-avatar.ts
+   └─ data/
+      └─ get-is-authenticated.ts
 ```
 
 ### Reducing mental overhead
@@ -113,60 +113,62 @@ We're going to use packages to create a stronger boundary between our features a
 
 We’ll begin by taking the first step in decomposing our application. First, we’ll create `/app` and `/packages` folders at the root of our project.
 
-```text
+```
 my-app (root)/
-├── apps/
-├── packages/
-└── src/
-    ├── feature-checkout/
-    │   ├── ui/
-    │   │   └── checkout-button.ts
-    │   ├── utilities/
-    │   │   └── format-price.ts
-    │   └── data/
-    │       └── get-product-information.ts
-    └── feature-auth/
-        ├── ui/
-        │   └── user-avatar.ts
-        └── data/
-            └── get-is-authenticated.ts
+├─ apps/
+├─ packages/
+└─ src/
+   ├─ feature-checkout/
+   │  ├─ ui/
+   │  │  └─ checkout-button.ts
+   │  ├─ utilities/
+   │  │  └─ format-price.ts
+   │  └─ data/
+   │     └─ get-product-information.ts
+   └─ feature-auth/
+      ├─ ui/
+      │  └─ user-avatar.ts
+      └─ data/
+         └─ get-is-authenticated.ts
 ```
 
 Next move everything in the root directory into a new application folder in the `/apps` directory and rename the root directory.
 
-```text
+```
 my-monorepo (root)/
-├── apps/
-│   └── my-app/
-│       └── src/
-│           ├── feature-checkout/
-│           │   ├── ui/
-│           │   │   └── checkout-button.ts
-│           │   ├── utilities/
-│           │   │   └── format-price.ts
-│           │   └── data/
-│           │       └── get-product-information.ts
-│           └── feature-auth/
-│               ├── ui/
-│               │   └── user-avatar.ts
-│               └── data/
-│                   └── get-is-authenticated.ts
-└── packages/
+├─ apps/
+│  └─ my-app/
+│     └─ src/
+│        ├─ feature-checkout/
+│        │  ├─ ui/
+│        │  │  └─ checkout-button.ts
+│        │  ├─ utilities/
+│        │  │  └─ format-price.ts
+│        │  └─ data/
+│        │     └─ get-product-information.ts
+│        └─ feature-auth/
+│           ├─ ui/
+│           │  └─ user-avatar.ts
+│           └─ data/
+│              └─ get-is-authenticated.ts
+└─ packages/
 ```
 
 To enable monorepo development, we need to configure our package manager.
 
 We'll use pnpm in this case, but Yarn or NPM workspaces will also work. We need to tell pnpm that all packages are within the `/apps` and `/packages` directories.
 
+<Filename>pnpm-workspace.yaml</Filename>
+
 ```yaml
 packages:
-  - "packages/*"
-  - "apps/*"
+	- "packages/*"
+	- "apps/*"
 ```
 
 We’re going to move everything that was in our feature folder into our package’s `/src` directory.
 
-```text
+```
 /my-monorepo (root)/
 ├── /packages/
 │   └── /feature-checkout/
@@ -190,6 +192,7 @@ We’re going to move everything that was in our feature folder into our package
 
 To create a new feature package, navigate to the `/packages` directory, create a new package.json file, and give it the same name as the previously named feature folder.
 
+<Filename>packages/feature-checkout/package.json</Filename>
 ```json
 {
   "name": "@package/feature-checkout",
@@ -200,12 +203,12 @@ To create a new feature package, navigate to the `/packages` directory, create a
 }
 ```
 
-<aside>
+<Callout>
   💡 We’re using the `@package` scope here as an example but I like to use
   something fun to differentiate packages within a monorepo. For example, I
   scoped the packages in the Disney+ monorepo to `@solo` since we named it the
   *Solorepo*!
-</aside>
+</Callout>
 
 You may notice that our entry point references an uncompiled TypeScript file. We delegate the compilation of this package's code to the application, allowing you to create packages that provide the same developer experience as if the files were built directly into our application. This is known as the [internal package](https://turbo.build/repo/docs/handbook/sharing-code/internal-packages) pattern, and there are some great code samples in the [TurboRepo documentation](https://turbo.build/repo/docs/handbook/sharing-code/internal-packages).
 
@@ -215,10 +218,10 @@ We're also making this package private because we don't want to publish uncompil
 
 Lastly, we’re going to add our feature package as a dependency of the application.
 
+<Filename>apps/my-app/package.json</Filename>
 ```json
 {
   "name": "my-app",
-  //...
   "dependencies": {
     "@package/feature-checkout": "workspace:*"
   }
@@ -227,14 +230,14 @@ Lastly, we’re going to add our feature package as a dependency of the applicat
 
 The `workspace:*` syntax tells pnpm to use the most recent version of your package within the monorepo. You can still use semver to version your packages and tag releases using a tool like [Changesets](https://github.com/changesets/changesets).
 
-<aside>
+<Callout>
 💡 If you want to receive notifications when a local package makes a major or minor release, you can use a versioned workspace protocol like `workspace:^1.2.3`.
 
 This will generate an error during `pnpm install` if the version of a local package is updated to a value outside the defined semver range.
 
 Package authors will then be forced to update the `package.json` of the downstream dependency. Doing so will trigger a `CODEOWNERS` change and notify relevant teams in PRs.
 
-</aside>
+</Callout>
 
 It is important to treat feature packages as an extension of your application. I recommend keeping dependency versions and NPM script names in sync.
 
@@ -290,7 +293,7 @@ The next step to address these issues is to find the boundary between business d
 
 When breaking down a monorepo, the first instinct is to divide it by team. While teams might sometimes align with a business domain, it’s important to structure your repositories in a way that doesn’t require a major refactor when reorganizations happen.
 
-The mantra that has always helped me is _“what changes together, stays together”_. You don't want to have a workflow where two tightly coupled packages are developed across different repositories. This would require going through the build/version/publish/validate workflow for every pull request and cause a lot of frustration.
+The mantra that has always helped me is _“what changes together, stays together”_. You don't want to have a workflow where two tightly coupled packages are developed across different repositories. This would require going through the build -> version -> publish -> validate workflow for every pull request and cause a lot of frustration.
 
 To share packages across monorepos, you’ll need to build and publish your feature packages. This will enable the same level of business agility that we had before but across different business domain monorepos.
 
@@ -306,11 +309,13 @@ As long as you maintain a narrow scope for your package it doesn’t matter how 
 
 ### Can I publish my packages to a registry early on?
 
-Definitely! If you're working at a larger company, it's common for your peers to look at what you're working on and want to leverage some of the great work you've done.
+Definitely! If you want to make it easier to idenpendently consume a portion of your open source project you can just add a build step and publish it.
+
+If you're working at a larger company, it's common for your peers to look at what you're working on and want to leverage some of the great work you've done.
 
 Because that team probably has a specific idea of what they want to reuse that will translate well to a narrowly scoped package.
 
-## Next steps
+## More monorepo tools
 
 Monorepo tooling is still not completely frustration-free, but many projects are making it easier to get started. Here is a non-exhaustive list of some useful tools that I have found helpful in the past for managing monorepos with many packages.
 
@@ -326,16 +331,16 @@ Monorepo tooling is still not completely frustration-free, but many projects are
 
 [syncpack](https://github.com/JamieMason/syncpack): Consistent dependency versions in large JavaScript Monorepos.
 
-### The vision of the future
+## A vision of the future
 
-Imagine our starter application as a big blob of clay. It doesn't have any real shape which makes it difficult to figure out where the boundaries of logic are.
+Think of our starter application as a big blob of clay. It doesn't have any real shape which makes it difficult to figure out where the boundaries of logic are.
 
-When we refactored a bit of logic into a feature package, we gave a subset of our code definition. We can add documentation to that package to provide even more context and create a `CODEOWNERS` file to assign ownership to the package. We transformed a piece of our clay into a building block with a distinct shape and a defined method of connecting to other building blocks.
+When we refactored a bit of logic into a feature package, we gave definition to a subset of that code blob. We can add documentation to that package to provide even more context about how it should be used and create a `CODEOWNERS` file to assign ownership to the package. We transformed a piece of our clay into a building block with a distinct shape and a defined method of connecting to other building blocks.
 
-Now, imagine that the majority of your codebase is made up of clearly defined building blocks. Layer on the dependency graph, and you have an indexable data structure that may not exist in a single application.
+Now, imagine that the majority of your codebase is made up of clearly defined building blocks. Layer on the dependency graph, and you have an indexable data structure that would be extremely difficult to re-create in a single application.
 
 What if we could layer AI on top of that, tell it what we want to build, and get back an instruction book of all the building blocks available to us, who owns them, and which ones need to be created to reach our goal?
 
-Imagine a world without communication silos, synchronous meetings, or surveys, where the needs of your engineers are proactively communicated to the teams best suited to address them. A world where no work is duplicated and engineering velocity is accelerated by leveraging the work of those who came before.
+Imagine a world where the needs of your engineers are proactively communicated to the teams best suited to address them. A world where no work is duplicated and engineering velocity is exponentially accelerated by leveraging the work of those who came before.
 
 This is the future I want to build, and if you want to come along for the ride, you can follow me at [@alecchernicki](https://twitter.com/alecchernicki)

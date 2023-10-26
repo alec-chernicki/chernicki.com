@@ -10,7 +10,7 @@ function PostCard(post: Post) {
       href={post.slug}
       className="flex justify-between items-center group dark:hover:bg-neutral-900 hover:bg-neutral-50 py-3 border-b last:border-none dark:border-neutral-800 transition-colors"
     >
-      <h3 className="text-base font-medium text-neutral-700 dark:text-white transition-colors">
+      <h3 className="text-base text-neutral-700 dark:text-white transition-colors">
         {post.title}
       </h3>
       <DateTime dateTime={post.publishedAt} />
