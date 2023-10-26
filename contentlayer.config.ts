@@ -29,7 +29,7 @@ export default makeSource({
     rehypePlugins: [
       rehypeSlug,
       [
-        rehypePrettyCode,
+        rehypePrettyCode as any,
         {
           theme: "one-dark-pro",
           onVisitLine(node) {
