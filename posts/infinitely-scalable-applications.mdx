@@ -14,23 +14,23 @@ In this post, we’re going to walk through one way to leverage these tools to t
 
 1. Fast iteration velocity with clear separation of concerns at every point of scale
 2. High business agility through efficient code re-use
-3. Scalable tasks (build/ test/ lint) that are decoupled from application size
+3. Scalable tasks (`build`/ `test`/ `lint`) that are decoupled from application size
 
-## **Key Concepts**
+## Key Concepts
 
 I want to take a moment to explain some foundational tools that we’ll use to structure our project.
 
-### **Composition**
+### Composition
 
 If you’ve used React, you’re probably familiar with composition principles. To make a component highly reusable, its props should be structured around what it does instead of where it’s used. We then compose these components together and pass them context-specific logic.
 
 This pattern is called inversion of control, and Kent C. Dodds has [a great blog post](https://kentcdodds.com/blog/inversion-of-control) about it if you want to learn more. Instead of composing components together to build a page, we’re going to compose packages together to build an application.
 
-### **Applications as a point of composition**
+### Applications as a point of composition
 
 The term "application" usually refers to the deployable artifact that our users see. I’m going to use the word “application” to refer to the directory containing our application’s package.json. This is where we list all the dependencies, either local to the monorepo or external in a registry, that we’ll need to build or compose our application.
 
-### **Packages as a boundary**
+### Packages as a boundary
 
 Packages are mainly used for sharing code, either by open-sourcing it on NPM or keeping it in a private registry for internal teams.
 
@@ -38,9 +38,9 @@ When we package code from an application, we take on the task of managing depend
 
 We’re going to focus on using packages as a way to define strong boundaries in an ever-growing codebase.
 
-## Scaling a **single application**
+## Scaling a single application
 
-### **The Problem of Disorganization**
+### The Problem of Disorganization
 
 If you’re in the early stages, you’ll start with a handful of directories to organize logic. You might have a folder named `/components` that contains all your React components. You might also have a folder that becomes a bottomless pit of random functions named `/utilities` or `/lib`.
 
@@ -50,7 +50,7 @@ When working on a codebase with more than 20 files in each directory, it can be 
 
 At this stage, our focus is on optimizing for clarity in code usage. To achieve this, let's start by organizing our codebase with an additional level of hierarchy. This will categorize our code based on the specific use case intended for each file.
 
-For example, if your directory structure contains a lot of authentication and checkout logic…
+For example, if your directory structure contains a lot of authentication and checkout logic
 
 ```
 /ui
@@ -63,7 +63,7 @@ For example, if your directory structure contains a lot of authentication and ch
   get-is-authenticated.ts
 ```
 
-…you’ll be able to organize these into dedicated `/feature-checkout` and `/feature-auth` folders.
+you’ll be able to organize these into dedicated `/feature-checkout` and `/feature-auth` folders.
 
 ```
 /feature-checkout
@@ -132,7 +132,7 @@ my-app (root)/
             └── get-is-authenticated.ts
 ```
 
-Next move **everything** in the root directory into a new application folder in the `/apps` directory and rename the root directory.
+Next move everything in the root directory into a new application folder in the `/apps` directory and rename the root directory.
 
 ```text
 my-monorepo (root)/
@@ -164,7 +164,7 @@ packages:
   - "apps/*"
 ```
 
-We’re going to move everything that was in our feature folder into our package’s **`/src`** directory.
+We’re going to move everything that was in our feature folder into our package’s `/src` directory.
 
 ```text
 /my-monorepo (root)/
@@ -248,7 +248,12 @@ With this architecture, we get the same great developer experience as working in
 
 As we refactor more feature folders into feature packages, our application becomes thinner and thinner.
 
-![thin-applications.png](Infinitely%20Scalable%20Applications%203ea7cca74af54040b13c1791444224fb/thin-applications.png)
+<Image
+  alt={`A graph showing increasing task time as applications get larger`}
+  src={`/images/infinitely-scalable-applications/application-1.png`}
+  width={1422}
+  height={556}
+/>
 
 The pattern of thin applications built on an ecosystem of packages treats your application as the point of composition for feature packages. It narrows the responsibility of your application to bundling, data loading, rendering, and routing.
 
@@ -258,13 +263,18 @@ If you want to reduce the execution time of your `build` task, you can add a `bu
 
 The value your engineering team creates isn’t in an application; it’s in the features your team builds to solve the problems of your customers or your business. Optimizing for re-use of these features will accelerate engineering velocity and give your business the agility to pivot and quickly re-compose existing features. Let’s explore a real-world scenario where this pattern shines.
 
-![multi-use.png](Infinitely%20Scalable%20Applications%203ea7cca74af54040b13c1791444224fb/multi-use.png)
+<Image
+  alt={`A graph showing increasing task time as applications get larger`}
+  src={`/images/infinitely-scalable-applications/application-2.png`}
+  width={1422}
+  height={556}
+/>
 
 Imagine that your new AI product is taking off, and you want to create a marketing site where visitors can experience a demo of your new chatbot.
 
 To make your AI feature shareable, you would typically need to invest time and resources into separating it from your application. Initially, you may have created a separate package for your AI feature solely for task performance. However, with package composition, you can easily reuse it in a completely different business context without any upfront investment.
 
-We may not know what the future holds, but we can optimize for **any** future.
+We may not know what the future holds, but we can optimize for any future.
 
 ## Scaling an ecosystem
 
@@ -284,17 +294,17 @@ The mantra that has always helped me is _“what changes together, stays togethe
 
 To share packages across monorepos, you’ll need to build and publish your feature packages. This will enable the same level of business agility that we had before but across different business domain monorepos.
 
-## **Common questions**
+## Common questions
 
 A few questions consistently come up while implementing this architectural pattern.
 
-### **How Big Should Packages Be?**
+### How Big Should Packages Be?
 
 Packages can be one file or one hundred files. Some packages need more logic, even if the scope of that package is narrow. You can imagine that a database ORM package needs more files than a resizable text area.
 
 As long as you maintain a narrow scope for your package it doesn’t matter how many files you package contains. A better question to ask is “How many things is this package responsible for?”
 
-### **Can I publish my packages to a registry early on?**
+### Can I publish my packages to a registry early on?
 
 Definitely! If you're working at a larger company, it's common for your peers to look at what you're working on and want to leverage some of the great work you've done.
 
@@ -320,7 +330,7 @@ Monorepo tooling is still not completely frustration-free, but many projects are
 
 Imagine our starter application as a big blob of clay. It doesn't have any real shape which makes it difficult to figure out where the boundaries of logic are.
 
-When we refactored a bit of logic into a feature package, we gave a subset of our code definition. We can add documentation to that package to provide even more context and create a CODEOWNERS file to assign ownership to the package. We transformed a piece of our clay into a building block with a distinct shape and a defined method of connecting to other building blocks.
+When we refactored a bit of logic into a feature package, we gave a subset of our code definition. We can add documentation to that package to provide even more context and create a `CODEOWNERS` file to assign ownership to the package. We transformed a piece of our clay into a building block with a distinct shape and a defined method of connecting to other building blocks.
 
 Now, imagine that the majority of your codebase is made up of clearly defined building blocks. Layer on the dependency graph, and you have an indexable data structure that may not exist in a single application.
 
@@ -328,4 +338,4 @@ What if we could layer AI on top of that, tell it what we want to build, and get
 
 Imagine a world without communication silos, synchronous meetings, or surveys, where the needs of your engineers are proactively communicated to the teams best suited to address them. A world where no work is duplicated and engineering velocity is accelerated by leveraging the work of those who came before.
 
-This is the future I want to build, and if you want to come along for the ride, you can follow me at @alecchernicki
+This is the future I want to build, and if you want to come along for the ride, you can follow me at [@alecchernicki](https://twitter.com/alecchernicki)

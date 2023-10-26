@@ -25,14 +25,9 @@ function RoundedImage({ alt, ...props }: React.ComponentProps<typeof Image>) {
   return <Image {...props} className="rounded-lg" alt={alt} />;
 }
 
-function CustomCode(props: React.ComponentProps<"code">) {
-  return <code {...props} className="font-mono not-prose" />;
-}
-
 const components = {
   Image: RoundedImage,
   a: CustomLink,
-  code: CustomCode,
 };
 
 export function Mdx({ code }: { code: string }) {
