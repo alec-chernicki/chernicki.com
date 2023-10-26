@@ -99,8 +99,8 @@ Frameworks often offer the best developer experience when all your code is place
 <Image
   alt={`A graph showing increasing task time as applications get larger`}
   src={`/images/infinitely-scalable-applications/task-graph.png`}
-  width={1422}
-  height={556}
+  width={1532}
+  height={792}
 />
 
 The time it takes to run tasks like `build`, `test`, and `lint` will increase linearly with the amount of code in your application. Adding new developers to the project will increase the rate at which new code is added, exponentially accelerating this issue.
@@ -249,10 +249,10 @@ With this architecture, we get the same great developer experience as working in
 As we refactor more feature folders into feature packages, our application becomes thinner and thinner.
 
 <Image
-  alt={`A graph showing increasing task time as applications get larger`}
+  alt="The transition from a monolith to a thin application built on a foundation of packages"
   src={`/images/infinitely-scalable-applications/application-1.png`}
-  width={1422}
-  height={556}
+  width={2364}
+  height={1535}
 />
 
 The pattern of thin applications built on an ecosystem of packages treats your application as the point of composition for feature packages. It narrows the responsibility of your application to bundling, data loading, rendering, and routing.
@@ -264,10 +264,10 @@ If you want to reduce the execution time of your `build` task, you can add a `bu
 The value your engineering team creates isn’t in an application; it’s in the features your team builds to solve the problems of your customers or your business. Optimizing for re-use of these features will accelerate engineering velocity and give your business the agility to pivot and quickly re-compose existing features. Let’s explore a real-world scenario where this pattern shines.
 
 <Image
-  alt={`A graph showing increasing task time as applications get larger`}
+  alt={`Easily reuse features across applications`}
   src={`/images/infinitely-scalable-applications/application-2.png`}
-  width={1422}
-  height={556}
+  width={1739}
+  height={1540}
 />
 
 Imagine that your new AI product is taking off, and you want to create a marketing site where visitors can experience a demo of your new chatbot.
