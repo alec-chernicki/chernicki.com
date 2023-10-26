@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Mdx } from "@/components/mdx";
 import { DateTime } from "@/components/date-time";
+import Image from "next/image";
 
 export async function generateMetadata({
   params,
@@ -18,12 +19,14 @@ export async function generateMetadata({
 
   const {
     title,
+    image,
     publishedAt: publishedTime,
     summary: description,
-
     slug,
   } = post;
-  const ogImage = `https://chernicki.com/og?title=${title}`;
+  const ogImage = image
+    ? `https://chernicki.com${image}`
+    : `https://chernicki.com/og?title=${title}`;
 
   return {
     title,
@@ -60,6 +63,12 @@ const PostPage = ({ params }: { params: { slug: string } }) => {
     <article className="grid space-y-4 pb-16">
       <h1 className="font-bold font-serif text-4xl">{post.title}</h1>
       <DateTime dateTime={post.publishedAt} />
+      <Image
+        src={post.image}
+        alt={`Cover photo for ${post.title}`}
+        width={1920}
+        height={1080}
+      />
       <Mdx code={post.body.code} />
     </article>
   );
