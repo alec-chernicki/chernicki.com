@@ -6,13 +6,15 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 export const Post = defineDocumentType(() => ({
   name: "Post",
-  filePathPattern: `**/*.md`,
+  filePathPattern: `**/*.mdx`,
+  contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
-    date: { type: "date", required: true },
+    publishedAt: { type: "date", required: true },
+    summary: { type: "string", required: true },
   },
   computedFields: {
-    url: {
+    slug: {
       type: "string",
       resolve: (post) => `/blog/${post._raw.flattenedPath}`,
     },
@@ -23,7 +25,7 @@ export default makeSource({
   contentDirPath: "posts",
   documentTypes: [Post],
   mdx: {
-    remarkPlugins: [remarkGfm],
+    // remarkPlugins: [remarkGfm],
     rehypePlugins: [
       rehypeSlug,
       [

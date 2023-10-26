@@ -18,7 +18,7 @@ const robotoMono = Roboto_Mono({
 
 export const metadata: Metadata = {
   title: "Alec Chernicki",
-  description: "Egnineer building tools to scale large JavaScript projects.",
+  description: "Engineer building tools to scale large JavaScript projects.",
   openGraph: {
     title: "Alec Chernicki",
     description: "Egnineer building tools to scale large JavaScript projects.",
