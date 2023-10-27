@@ -52,7 +52,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <h2 className="mb-2 text-2xl font-bold font-serif">Recent thoughts...</h2>
+      <h2 className="mb-6 text-2xl font-bold font-serif">Recent thoughts...</h2>
       <PostList posts={allPosts} />
     </>
   );

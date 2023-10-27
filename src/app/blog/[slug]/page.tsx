@@ -65,9 +65,10 @@ const PostPage = ({ params }: { params: { slug: string } }) => {
       <DateTime dateTime={post.publishedAt} />
       <Image
         src={post.image}
-        alt={`Cover photo for ${post.title}`}
+        alt={post.imageAlt}
         width={1200}
         height={630}
+        className="rounded-lg"
       />
       <Mdx code={post.body.code} />
     </article>
